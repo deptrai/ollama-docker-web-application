@@ -1,0 +1,36 @@
+version: "3"
+
+services:
+  backend-fastapi:
+    build:
+      context: ./fastapi
+      dockerfile: Dockerfile
+    image: ollama-fastapi-backend
+    ports:
+      - 8000:8000
+    networks:
+      - app-net
+    container_name: ollama-fastapi-backend
+    volumes:
+      - ./fastapi:/app
+  ollama-server:
+    build:
+      context: ./ollama
+      dockerfile: Dockerfile
+    image: ollama-backend
+    ports:
+      - 11434:11434
+    networks:
+      - app-net
+    entrypoint: ["/usr/bin/bash", "/pull-llama3.sh"]
+    container_name: ollama-backend
+    volumes:
+      - ollama-vol:/ollama
+
+networks:
+  app-net:
+    driver: bridge
+
+volumes:
+  ollama-vol:
+    driver: local
