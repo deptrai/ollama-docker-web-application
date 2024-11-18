@@ -20,7 +20,8 @@ services:
       - 11434:11434
     networks:
       - app-net
-    entrypoint: ["/usr/bin/bash", "/pull-qwen.sh"]
+    # Using tr to remove carriage returns instead of dos2unix
+    entrypoint: ["sh", "-c", "tr -d '\\r' < /pull-qwen.sh > /tmp/pull-qwen.sh && sh /tmp/pull-qwen.sh"]
     container_name: ollama-backend
     volumes:
       - ollama-vol:/ollama
