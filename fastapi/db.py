@@ -15,9 +15,11 @@ class DataChat(SQLModel, table=True):
         message (str): The user's input message 
         response (str): The response generated for the message
     """
-    id: int | None = Field(default=None, primary_key=True)
+    id: int | None = Field(default=None, primary_key=True, index=True)
     message: str
     response: str
+
+    
 
 
 path_db = "data_chat.sqlite3"
