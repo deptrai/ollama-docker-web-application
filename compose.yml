@@ -22,7 +22,7 @@ services:
       - 11434:11434
     networks:
       - app-net
-    entrypoint: ["/usr/bin/bash", "/pull-llama3.sh"]
+    entrypoint: ["/usr/bin/bash", "/pull-qwen.sh"]
     container_name: ollama-backend
     volumes:
       - ollama-vol:/ollama

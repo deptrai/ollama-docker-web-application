@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: ollama-fastapi-backend
+    runtime: docker
+    dockerfilePath: ./fastapi/Dockerfile
+    envVars:
+    - key: PORT
+      value: 8000
+
+  - type: web
+    name: ollama-backend
+    runtime: docker
+    dockerfilePath: ./ollama/Dockerfile
+    envVars:
+    - key: PORT
+      value: 11434
