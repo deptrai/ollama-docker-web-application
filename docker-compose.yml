@@ -1,0 +1,47 @@
+services:
+  frontend:
+    build: 
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./nextjs-app:/app
+      - /app/node_modules
+      - /app/.next
+    depends_on:
+      - backend
+    mem_limit: 2g
+    memswap_limit: 2g
+    environment:
+      - NODE_ENV=production
+
+  backend:
+    build: 
+      context: ./fastapi
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./fastapi:/app
+    depends_on:
+      - ollama-server
+
+  ollama-server:
+    build: 
+      context: ./ollama
+      dockerfile: Dockerfile
+    volumes:
+      - ollama_data:/root/.ollama
+    ports:
+      - "11434:11434"
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
+volumes:
+  ollama_data: 
