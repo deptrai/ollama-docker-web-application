@@ -1,6 +1,5 @@
-FROM ollama/ollama
+FROM ollama/ollama:latest
 
-COPY pull-qwen.sh /pull-qwen.sh
-RUN chmod +x /pull-qwen.sh
+EXPOSE 11434
 
-CMD ["/pull-qwen.sh"]
+CMD ["ollama", "serve"]

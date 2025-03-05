@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Pull the Qwen model
-ollama pull qwen2.5-coder:0.5b
+ollama pull qwen
 
 # Start Ollama server
 ollama serve
